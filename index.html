@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Beautiful Penny</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Georgia', serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ffd1dc, #f9f0ff);
+            color: #5a3d5c;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            color: #d14d72;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: #8b5a7a;
+        }
+        
+        .photo-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px 0;
+            perspective: 1000px;
+        }
+        
+        .photo-frame {
+            width: 250px;
+            height: 300px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s;
+            cursor: pointer;
+        }
+        
+        .photo-frame:hover {
+            transform: rotateY(15deg) scale(1.05);
+        }
+        
+        .photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border: 8px solid white;
+        }
+        
+        .poem-section {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .poem-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%23f9f0ff" d="M50,0 C77.614,0 100,22.386 100,50 C100,77.614 77.614,100 50,100 C22.386,100 0,77.614 0,50 C0,22.386 22.386,0 50,0 Z M50,10 C27.909,10 10,27.909 10,50 C10,72.091 27.909,90 50,90 C72.091,90 90,72.091 90,50 C90,27.909 72.091,10 50,10 Z"/></svg>');
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .poem-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #d14d72;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .poem {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .poem-line {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s, transform 0.8s;
+            margin-bottom: 15px;
+        }
+        
+        .music-player {
+            text-align: center;
+            margin: 40px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .music-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #d14d72;
+        }
+        
+        .love-symbols {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+        
+        .symbol {
+            text-align: center;
+            transition: transform 0.5s;
+        }
+        
+        .symbol:hover {
+            transform: scale(1.2) rotate(10deg);
+        }
+        
+        .symbol i {
+            font-size: 3rem;
+            color: #d14d72;
+            margin-bottom: 10px;
+        }
+        
+        .ring {
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle at 30% 30%, #ffd700, #ffa500);
+            border-radius: 50%;
+            position: relative;
+            margin: 0 auto 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .ring::before {
+            content: "";
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 2px solid white;
+            border-radius: 50%;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 40px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 15px 15px 0 0;
+            font-size: 1.2rem;
+            color: #8b5a7a;
+        }
+        
+        .heart {
+            color: #d14d72;
+            display: inline-block;
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .flower {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.7;
+            z-index: -1;
+            animation: float 8s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .photo-frame {
+                width: 200px;
+                height: 250px;
+            }
+            
+            .poem {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Floating flowers -->
+        <div class="flower" style="top: 10%; left: 5%;">🌸</div>
+        <div class="flower" style="top: 15%; right: 7%;">🌹</div>
+        <div class="flower" style="bottom: 20%; left: 8%;">💮</div>
+        <div class="flower" style="bottom: 15%; right: 5%;">🌺</div>
+        <div class="flower" style="top: 40%; left: 3%;">🌼</div>
+        <div class="flower" style="top: 35%; right: 3%;">🌷</div>
+        
+        <header>
+            <h1>For My Beautiful Penny</h1>
+            <p class="subtitle">A tribute to the most amazing woman in my life</p>
+        </header>
+        
+        <div class="photo-gallery">
+            <div class="photo-frame">
+                <img src="penny1" alt="Penny's beautiful smile" class="photo">
+            </div>
+            <div class="photo-frame">
+                <img src="penny2" alt="Penny's caring spirit" class="photo">
+            </div>
+            <div class="photo-frame">
+                <img src="penny3" alt="Penny's elegance" class="photo">
+            </div>
+        </div>
+        
+        <div class="poem-section">
+            <h2 class="poem-title">A Poem for Penny</h2>
+            <div class="poem">
+                <p class="poem-line">In a world so vast, our paths did cross,</p>
+                <p class="poem-line">Finding you, my love, was my greatest gain.</p>
+                <p class="poem-line">Your smile, like sunshine, melts away the frost,</p>
+                <p class="poem-line">And eases all my worry, stress, and pain.</p>
+                <p class="poem-line"></p>
+                <p class="poem-line">Your caring spirit, a gentle, warming light,</p>
+                <p class="poem-line">Guides me through darkness, makes everything right.</p>
+                <p class="poem-line">Your laughter is music, a sweet, joyful sound,</p>
+                <p class="poem-line">In your embrace, true happiness is found.</p>
+                <p class="poem-line"></p>
+                <p class="poem-line">With every day, my love for you just grows,</p>
+                <p class="poem-line">Like a lovely garden, or a river that flows.</p>
+                <p class="poem-line">You're my dream come true, my heart's delight,</p>
+                <p class="poem-line">My beautiful Penny, shining ever so bright.</p>
+            </div>
+        </div>
+        
+        <div class="music-player">
+            <h3 class="music-title">Our Song: Perfect by Ed Sheeran</h3>
+            <audio controls style="width: 100%; max-width: 400px;">
+                <source src="penny.aac" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            <p><em>Note: This is a sample audio. Replace with your actual song.</em></p>
+        </div>
+        
+        <div class="love-symbols">
+            <div class="symbol">
+                <div class="ring"></div>
+                <p>Our Future</p>
+            </div>
+            <div class="symbol">
+                <i class="fas fa-heart"></i>
+                <p>Everlasting Love</p>
+            </div>
+            <div class="symbol">
+                <i class="fas fa-kiss-wink-heart"></i>
+                <p>My Happiness</p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>With all my love, forever and always</p>
+            <p>Your husband, Vhuthu <span class="heart">❤️</span></p>
+        </footer>
+    </div>
+
+    <script>
+        // Poem animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const poemLines = document.querySelectorAll('.poem-line');
+            
+            function animatePoem() {
+                poemLines.forEach((line, index) => {
+                    setTimeout(() => {
+                        line.style.opacity = 1;
+                        line.style.transform = 'translateY(0)';
+                    }, 1000 * index);
+                });
+            }
+            
+            // Start animation when page loads
+            setTimeout(animatePoem, 1000);
+            
+            // Photo gallery animation
+            const photoFrames = document.querySelectorAll('.photo-frame');
+            photoFrames.forEach((frame, index) => {
+                frame.style.animationDelay = `${index * 0.3}s`;
+            });
+        });
+    </script>
+</body>
+</html>
